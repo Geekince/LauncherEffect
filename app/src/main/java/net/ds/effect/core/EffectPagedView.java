@@ -1,9 +1,5 @@
 package net.ds.effect.core;
 
-import net.ds.effect.framework.SlideView;
-import net.ds.effect.utils.Constants;
-import net.ds.effect.utils.HardwareAccelerationUtils2;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -14,7 +10,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Transformation;
 
-public class EffectSlideView extends SlideView {
+import net.ds.effect.framework.PagedView;
+import net.ds.effect.utils.Constants;
+import net.ds.effect.utils.HardwareAccelerationUtils2;
+
+public class EffectPagedView extends PagedView {
 
     public static final String TAG = Constants.TAG;
 
@@ -24,17 +24,19 @@ public class EffectSlideView extends SlideView {
 
     private PaintFlagsDrawFilter mAntiAliesFilter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
 
-    public EffectSlideView(Context context, AttributeSet attrs) {
+    public EffectPagedView(Context context) {
+        super(context);
+        setChildrenDrawingOrderEnabled(true);
+    }
+
+    public EffectPagedView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setChildrenDrawingOrderEnabled(true);
     }
 
-    public EffectSlideView(Context context) {
-        this(context, null);
-    }
-
-    public EffectSlideView(Context context, AttributeSet attrs, int defStyle) {
-        this(context, attrs);
+    public EffectPagedView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        setChildrenDrawingOrderEnabled(true);
     }
 
     public PaintFlagsDrawFilter getAntiAliesFilter() {
@@ -47,11 +49,6 @@ public class EffectSlideView extends SlideView {
 
     public int getCurrentScreenTransitionType() {
         return mCurrentEffectType;
-    }
-
-    @Override
-    public int getCurrentChildIndex() {
-        return mCurrChildIndex;
     }
 
     @Override
@@ -82,7 +79,7 @@ public class EffectSlideView extends SlideView {
                     final int ct = child.getTop();
                     final int cr = child.getRight();
                     final int cb = child.getBottom();
-                    canvas.saveLayerAlpha(sx, sy, sx + cr - cl, sy + cb - ct, (int) (255 * mChildTransformation.getAlpha()), Canvas.ALL_SAVE_FLAG );
+                    canvas.saveLayerAlpha(sx, sy, sx + cr - cl, sy + cb - ct, (int) (255 * mChildTransformation.getAlpha()), Canvas.ALL_SAVE_FLAG);
                 }
             }
             canvas.translate(-child.getLeft(), -child.getTop());
@@ -123,7 +120,7 @@ public class EffectSlideView extends SlideView {
             return null;
         }
 
-        return effect == null ? null : effect.getWorkspaceChildStaticTransformation(this, childView, childTransformation, radio, offset, this.mCurrChildIndex, true) ? effect : null;
+        return effect == null ? null : effect.getWorkspaceChildStaticTransformation(this, childView, childTransformation, radio, offset, mCurrentPage, true) ? effect : null;
     }
 
     protected int getOffset(View childView) {
@@ -134,16 +131,14 @@ public class EffectSlideView extends SlideView {
         float childMeasuredWidth = childView.getMeasuredWidth();
         int childLeft = childView.getLeft() + offset;
         float ratio = (this.getScrollX() - childLeft) * 1.0F / childMeasuredWidth;
-        
+
         Log.v(Constants.RATIO_TAG, "scrollX = " + getScrollX() + ",  left = " + childLeft + ", radio = " + ratio + ", child = " + childView);
         return ratio;
-        
     }
 
     private float mLastMotionY;
 
-    @SuppressLint("ClickableViewAccessibility")
-	@Override
+    @Override
     public boolean onTouchEvent(MotionEvent ev) {
         final float y = ev.getY();
         EffectInfo effect = null;
@@ -172,7 +167,7 @@ public class EffectSlideView extends SlideView {
     }
 
     private boolean isScrolling() {
-        return mLastScrollState == OnScrollListener.SCROLL_STATE_FLING || mLastScrollState == OnScrollListener.SCROLL_STATE_TOUCH_SCROLL;
+        return mIsPageMoving;
     }
 
     protected float getMotionYRadio() {
@@ -186,7 +181,7 @@ public class EffectSlideView extends SlideView {
         boolean reverse = effect.drawChildrenOrderByMoveDirection();
 
         if (reverse) {
-            int index = getCurrentChildIndex();
+            int index = mCurrentPage;
 
             if (getMoveDirection() == DIRECTION_LEFT) {
                 index = index - 1;
@@ -204,3 +199,4 @@ public class EffectSlideView extends SlideView {
     }
 
 }
+

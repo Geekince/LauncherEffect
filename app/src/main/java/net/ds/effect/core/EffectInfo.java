@@ -75,7 +75,7 @@ public abstract class EffectInfo {
             final int ct = child.getTop();
             final int cr = child.getRight();
             final int cb = child.getBottom();
-            canvas.saveLayerAlpha(0, 0, cr - cl, cb - ct, (int) (255 * alpha), Canvas.HAS_ALPHA_LAYER_SAVE_FLAG | Canvas.CLIP_TO_LAYER_SAVE_FLAG);
+            canvas.saveLayerAlpha(0, 0, cr - cl, cb - ct, (int) (255 * alpha), Canvas.ALL_SAVE_FLAG);
         }
         canvas.translate(-child.getLeft(), -child.getTop());
 

@@ -1,10 +1,11 @@
-package net.ds.effect.framework;
+package net.ds.effect.ui;
 
 import java.util.List;
 
 import net.ds.effect.R;
 import net.ds.effect.core.EffectFactory;
 import net.ds.effect.core.EffectInfo;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
@@ -35,6 +36,7 @@ public class EffectsOverview extends android.widget.FrameLayout implements OnCli
 
     @Override
     protected void onFinishInflate() {
+        super.onFinishInflate();
         mListView = (ListView) findViewById(R.id.effect_list_listview);
     }
     
@@ -106,11 +108,11 @@ public class EffectsOverview extends android.widget.FrameLayout implements OnCli
 
     protected void onClickPreview(EffectInfo effectObject) {
         Intent intent = new Intent(this.getContext(), PreviewActivity.class);
+//        Intent intent = new Intent(this.getContext(), Preview2Activity.class);
         intent.putExtra(PreviewActivity.SELECTED_EFFECT_ID, effectObject.type);
         this.getContext().startActivity(intent);
     }
-    
-    
+
     private class EffectAdapter extends BaseAdapter {
 
         private final LayoutInflater mInflater;
@@ -200,7 +202,6 @@ public class EffectsOverview extends android.widget.FrameLayout implements OnCli
                 mContainers[i].setOnClickListener(null);
             }
         }
-
     }
 
     @Override

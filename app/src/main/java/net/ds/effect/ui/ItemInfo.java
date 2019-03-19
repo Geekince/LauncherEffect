@@ -1,4 +1,4 @@
-package net.ds.effect.framework;
+package net.ds.effect.ui;
 
 
 /**

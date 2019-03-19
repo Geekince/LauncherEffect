@@ -1,16 +1,17 @@
 
-package net.ds.effect.framework;
+package net.ds.effect.ui;
 
-import net.ds.effect.R;
-import net.ds.effect.core.EffectCellLayout;
-import net.ds.effect.core.EffectSlideView;
 import android.app.Activity;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class PreviewActivity extends Activity {
+import net.ds.effect.R;
+import net.ds.effect.core.EffectCellLayout;
+import net.ds.effect.core.EffectPagedView;
+
+public class Preview2Activity extends Activity {
     
     public static final String SELECTED_EFFECT_ID = "selected_effect_key";
     private static final int MAX_SCREEN_SIZE = 3;
@@ -19,15 +20,15 @@ public class PreviewActivity extends Activity {
     
     private int mCurrentEffect;
     
-    private EffectSlideView mSlideView;
+    private EffectPagedView mPagedView;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preview);
-        mSlideView = (EffectSlideView) findViewById(R.id.slide_view);
+        setContentView(R.layout.activity_preview2);
+        mPagedView = (EffectPagedView) findViewById(R.id.paged_view);
         mCurrentEffect = this.getIntent().getIntExtra(SELECTED_EFFECT_ID, -1);
-        mSlideView.setCurrentEffect(mCurrentEffect);
+        mPagedView.setCurrentEffect(mCurrentEffect);
         initIcons();
     }
     
@@ -55,7 +56,7 @@ public class PreviewActivity extends Activity {
                     cellLayout.addView(textView);
                 }
             }
-            mSlideView.addView(cellLayout);
+            mPagedView.addView(cellLayout);
         }
     }
     

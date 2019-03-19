@@ -1,7 +1,9 @@
 
-package net.ds.effect.framework;
+package net.ds.effect.ui;
 
 import net.ds.effect.R;
+import net.ds.effect.ui.EffectsOverview;
+
 import android.app.Activity;
 import android.os.Bundle;
 

@@ -17,7 +17,7 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Scroller;
 
-public class MySlideView2 extends ViewGroup {
+public class SlideView extends ViewGroup {
 
     protected int mMinimumVelocity;
     protected int mMaximumVelocity;
@@ -56,23 +56,23 @@ public class MySlideView2 extends ViewGroup {
         public static final int SCROLL_STATE_PASS_HALF = 3;
         public static final int SCROLL_STATE_PASS_WHOLE = 4;
 
-        public void onScrollStateChanged(MySlideView2 view, int scrollState, int childIndex);
-        public void onScroll(MySlideView2 view, int delta);
+        public void onScrollStateChanged(SlideView view, int scrollState, int childIndex);
+        public void onScroll(SlideView view, int delta);
     }
 
     public interface OnPageChangedListener {
         public void onPageChanged(int oldPage, int newPage);
     }
 
-    public MySlideView2(Context context) {
+    public SlideView(Context context) {
         this(context, null);
     }
 
-    public MySlideView2(Context context, AttributeSet attrs) {
+    public SlideView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public MySlideView2(Context context, AttributeSet attrs, int defStyle) {
+    public SlideView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         mConfig = new Configuration(this.getResources().getConfiguration());
@@ -871,7 +871,7 @@ public class MySlideView2 extends ViewGroup {
                     if (more && !atEnd) {
                         invalidate();
                         mLastFlingX = x;
-                        ViewUtils.postOnAnimation(MySlideView2.this, this);
+                        ViewUtils.postOnAnimation(SlideView.this, this);
                         /* for sping mode begin */
                     } else if (atEnd) {
                         if (mBounceEffect && mSpringModel) {
@@ -974,7 +974,7 @@ public class MySlideView2 extends ViewGroup {
 
             if (more) {
                 mLastFlingX = x;
-                ViewUtils.postOnAnimation(MySlideView2.this, this);
+                ViewUtils.postOnAnimation(SlideView.this, this);
             } else {
                 endFling();
             }
@@ -1090,7 +1090,7 @@ public class MySlideView2 extends ViewGroup {
 
             if (more) {
                 mLastFlingX = x;
-                ViewUtils.postOnAnimation(MySlideView2.this, this);
+                ViewUtils.postOnAnimation(SlideView.this, this);
             } else {
                 /* sliding back */
                 if (mBounceRunnable == null) {

@@ -9,7 +9,7 @@ import java.util.Map;
 
 import net.ds.effect.R;
 import net.ds.effect.framework.CellLayout;
-import net.ds.effect.framework.ItemInfo;
+import net.ds.effect.ui.ItemInfo;
 import net.ds.effect.utils.Constants;
 import net.ds.effect.utils.RuntimeConfig;
 import android.content.Context;
@@ -2372,7 +2372,7 @@ public class EffectFactory {
                 final int cr = childView.getRight();
                 final int cb = childView.getBottom();
                 //TODO 4.3中此方法导致速度巨慢，暂时屏蔽
-                canvas.saveLayerAlpha(cl, ct, cr, cb, (int) (255 * alpha * gradualFactor * alphalFactor), Canvas.HAS_ALPHA_LAYER_SAVE_FLAG | Canvas.CLIP_TO_LAYER_SAVE_FLAG);
+                canvas.saveLayerAlpha(cl, ct, cr, cb, (int) (255 * alpha * gradualFactor * alphalFactor), Canvas.ALL_SAVE_FLAG);
             }
 
             boolean ret = true;
@@ -2704,7 +2704,7 @@ public class EffectFactory {
                 final int cr = childView.getRight();
                 final int cb = childView.getBottom();
 
-                canvas.saveLayerAlpha(cl, ct, cr, cb, (int) (255 * alpha * gradualFactor * alphalFactor), Canvas.HAS_ALPHA_LAYER_SAVE_FLAG | Canvas.CLIP_TO_LAYER_SAVE_FLAG); //TODO 4.3中此方法导致速度巨慢，暂时屏蔽
+                canvas.saveLayerAlpha(cl, ct, cr, cb, (int) (255 * alpha * gradualFactor * alphalFactor), Canvas.ALL_SAVE_FLAG); //TODO 4.3中此方法导致速度巨慢，暂时屏蔽
             }
 
             boolean ret = true;

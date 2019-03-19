@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <net.ds.effect.framework.EffectsOverview
+    <net.ds.effect.ui.EffectsOverview
         android:id="@+id/overview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -23,6 +23,6 @@
             android:paddingTop="3dip" >
         </ListView>
         
-    </net.ds.effect.framework.EffectsOverview>
+    </net.ds.effect.ui.EffectsOverview>
 
 </FrameLayout>
